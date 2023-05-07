@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
@@ -13,23 +12,25 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
+  addContact = (name, number, id) => {
+    if (
+      this.state.contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
 
     this.setState(prevState => {
       return {
-        contacts: [
-          ...prevState.contacts,
-          { name: prevState.name, number: prevState.number, id: nanoid() },
-        ],
+        contacts: [...prevState.contacts, { name, number, id }],
       };
     });
   };
@@ -48,7 +49,7 @@ export class App extends Component {
         <h2>Phonebook</h2>
         <ContactForm
           handleInputChange={this.handleInputChange}
-          handleFormSubmit={this.handleFormSubmit}
+          addContact={this.addContact}
         />
         <h2>Contacts</h2>
         <Filter hendleFilterChange={this.handleInputChange} />

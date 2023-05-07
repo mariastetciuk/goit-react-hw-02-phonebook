@@ -1,81 +1,95 @@
-// import { Component } from 'react';
-// import { nanoid } from 'nanoid';
+import { Component } from 'react';
+import { nanoid } from 'nanoid';
 
-// export class ContactForm extends Component {
-//   state = {
-//     contacts: [],
-//     name: '',
-//   };
+export class ContactForm extends Component {
+  state = {
+    name: '',
+    number: '',
+  };
 
-//   handleInputChange = event => {
-//     this.setState({ name: event.target.value });
-//     // this.setState({ contacts: [...this.state.contacts, event.target.value] });
-//   };
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
-//   handleFormSubmit = event => {
-//     event.preventDefault();
+  handleFormSubmit = event => {
+    event.preventDefault();
 
-//     this.setState(prevState => {
-//       return {
-//         contacts: [
-//           ...prevState.contacts,
-//           { name: prevState.name, id: nanoid() },
-//         ],
-//       };
-//     });
-//   };
+    this.props.addContact(this.state.name, this.state.number, nanoid());
+    this.resetForm();
+  };
 
-//   render() {
-//     return (
-//       <form onSubmit={this.handleFormSubmit}>
-//         <label htmlFor="">
-//           Name
-//           <input
-//             type="text"
-//             name="name"
-//             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-//             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-//             required
-//             onChange={this.handleInputChange}
-//           />
-//         </label>
-//         <input type="submit" value="Add contact" />
-//       </form>
-//     );
-//   }
-// }
+  resetForm = () => {
+    this.setState({ name: '', number: '' });
+  };
 
-export function ContactForm({ handleFormSubmit, handleInputChange }) {
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <label htmlFor="">
-        Name
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <br />
-      <label htmlFor="">
-        Number
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <input type="submit" value="Add contact" />
-    </form>
-  );
+  render() {
+    return (
+      <form onSubmit={this.handleFormSubmit}>
+        <label htmlFor="">
+          Name
+          <input
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+            onChange={this.handleInputChange}
+          />
+        </label>
+        <br />
+        <br />
+        <br />
+        <label htmlFor="">
+          Number
+          <input
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+            onChange={this.handleInputChange}
+          />
+        </label>
+        <br />
+        <br />
+        <input type="submit" value="Add contact" />
+      </form>
+    );
+  }
 }
+
+// export function ContactForm({ handleFormSubmit, handleInputChange }) {
+//   return (
+//     <form onSubmit={handleFormSubmit}>
+//       <label htmlFor="">
+//         Name
+//         <input
+//           type="text"
+//           name="name"
+//           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+//           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+//           required
+//           onChange={handleInputChange}
+//         />
+//       </label>
+//       <br />
+//       <br />
+//       <br />
+//       <label htmlFor="">
+//         Number
+//         <input
+//           type="tel"
+//           name="number"
+//           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+//           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+//           required
+//           onChange={handleInputChange}
+//         />
+//       </label>
+//       <br />
+//       <br />
+//       <input type="submit" value="Add contact" />
+//     </form>
+//   );
+// }
