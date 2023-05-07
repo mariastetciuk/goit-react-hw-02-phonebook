@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import css from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -48,7 +49,7 @@ export class App extends Component {
       return contact.name.toLowerCase() !== name.toLowerCase();
     });
 
-    this.setState(prevState => {
+    this.setState(() => {
       return {
         contacts: [...contacts],
       };
@@ -57,16 +58,16 @@ export class App extends Component {
 
   render() {
     return (
-      <>
-        <h2>Phonebook</h2>
+      <div className={css.container}>
+        <h2 className={css.title}>Phonebook</h2>
         <ContactForm addContact={this.addContact} />
-        <h2>Contacts</h2>
+        <h2 className={css.title}>Contacts</h2>
         <Filter hendleFilterChange={this.handleInputChange} />
         <ContactList
           contacts={this.filterContacts()}
           deleteContact={this.deleteContact}
         />
-      </>
+      </div>
     );
   }
 }
