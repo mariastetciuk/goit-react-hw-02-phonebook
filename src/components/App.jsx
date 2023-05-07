@@ -43,17 +43,29 @@ export class App extends Component {
     });
   };
 
+  deleteContact = name => {
+    const contacts = this.state.contacts.filter(contact => {
+      return contact.name.toLowerCase() !== name.toLowerCase();
+    });
+
+    this.setState(prevState => {
+      return {
+        contacts: [...contacts],
+      };
+    });
+  };
+
   render() {
     return (
       <>
         <h2>Phonebook</h2>
-        <ContactForm
-          handleInputChange={this.handleInputChange}
-          addContact={this.addContact}
-        />
+        <ContactForm addContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter hendleFilterChange={this.handleInputChange} />
-        <ContactList contacts={this.filterContacts()} />
+        <ContactList
+          contacts={this.filterContacts()}
+          deleteContact={this.deleteContact}
+        />
       </>
     );
   }
