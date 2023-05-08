@@ -62,7 +62,10 @@ export class App extends Component {
         <h2 className={css.title}>Phonebook</h2>
         <ContactForm addContact={this.addContact} />
         <h2 className={css.title}>Contacts</h2>
-        <Filter hendleFilterChange={this.handleInputChange} />
+        <Filter
+          filter={this.state.filter}
+          hendleFilterChange={this.handleInputChange}
+        />
         <ContactList
           contacts={this.filterContacts()}
           deleteContact={this.deleteContact}
